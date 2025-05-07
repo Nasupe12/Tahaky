@@ -7,16 +7,15 @@
     body {
       font-family: Arial;
       padding: 20px;
-      background: #f0f0f0;
+      background: #f9f9f9;
     }
-
     .tahak {
       background: white;
       padding: 15px;
       margin-bottom: 20px;
       border-radius: 5px;
+      box-shadow: 0 0 5px #ccc;
     }
-
     button {
       margin-top: 10px;
     }
@@ -27,15 +26,32 @@
   <div id="seznamTahaku"></div>
 
   <script>
+    const formspreeUrl = 'https://formspree.io/f/movdwekl'; // ← Vlož svůj odkaz sem
+
     function odesliZadost(nazevTahaku) {
       const jmeno = prompt("Zadej své jméno:");
       if (!jmeno) return;
 
-      fetch('zadost.php', {
+      const data = {
+        tahak: nazevTahaku,
+        jmeno: jmeno
+      };
+
+      fetch(formspreeUrl, {
         method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `tahak=${encodeURIComponent(nazevTahaku)}&jmeno=${encodeURIComponent(jmeno)}`
-      }).then(res => res.text()).then(msg => alert(msg));
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Žádost byla odeslána!');
+        } else {
+          alert('Chyba při odesílání žádosti.');
+        }
+      });
     }
 
     fetch('tahaky.json')
