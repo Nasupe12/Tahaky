@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Taháky</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+
+    .tahak {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Seznam taháků</h1>
+  <div id="seznamTahaku"></div>
+
+  <script>
+    function odesliZadost(nazevTahaku) {
+      const jmeno = prompt("Zadej své jméno:");
+      if (!jmeno) return;
+
+      fetch('zadost.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `tahak=${encodeURIComponent(nazevTahaku)}&jmeno=${encodeURIComponent(jmeno)}`
+      }).then(res => res.text()).then(msg => alert(msg));
+    }
+
+    fetch('tahaky.json')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('seznamTahaku');
+        data.forEach(tahak => {
+          const div = document.createElement('div');
+          div.className = 'tahak';
+          div.innerHTML = `
+            <h3>${tahak.nazev}</h3>
+            <p><em>Autor: ${tahak.autor}</em></p>
+            <button onclick="odesliZadost('${tahak.nazev}')">Poslat žádost o vytištění</button>
+          `;
+          container.appendChild(div);
+        });
+      });
+  </script>
+</body>
+</html>
