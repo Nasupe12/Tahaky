@@ -4,45 +4,44 @@
   <meta charset="UTF-8">
   <title>Taháky</title>
   <link rel="stylesheet" href="styl.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
 </head>
 <body>
   <header>
-    <h1>Taháky</h1>
-    <div id="auth-buttons">
-      <span id="user-info"></span>
+    <h2>Taháky</h2>
+    <div class="auth-buttons">
+      <span id="userInfo"></span>
       <button onclick="zobrazPrihlaseni()">Přihlásit se</button>
       <button onclick="zobrazRegistraci()">Vytvořit účet</button>
-      <button onclick="odhlasit()" id="btn-odhlasit" style="display:none">Odhlásit se</button>
+      <button onclick="odhlasit()" id="btnOdhlasit" style="display:none">Odhlásit se</button>
     </div>
   </header>
 
-  <main>
-    <div id="seznam-tahaku"></div>
-  </main>
+  <div class="container">
+    <div id="seznamTahaku"></div>
+  </div>
 
-  <!-- Modály -->
-  <div class="modal" id="modal-prihlaseni">
+  <div class="modal" id="modalPrihlaseni">
     <div class="modal-content">
-      <h2>Přihlášení</h2>
-      <input type="email" id="login-email" placeholder="E-mail">
-      <label><input type="checkbox" id="zustat-prihlasen"> Zůstat přihlášen</label><br>
+      <h3>Přihlášení</h3>
+      <input type="email" id="loginEmail" placeholder="E-mail" required>
+      <label><input type="checkbox" id="zustatPrihlasen"> Zůstat přihlášen</label><br>
       <button onclick="prihlasit()">Přihlásit</button>
       <button onclick="zavritModal()">Zavřít</button>
     </div>
   </div>
 
-  <div class="modal" id="modal-registrace">
+  <div class="modal" id="modalRegistrace">
     <div class="modal-content">
-      <h2>Registrace</h2>
-      <input type="text" id="reg-jmeno" placeholder="Jméno">
-      <input type="text" id="reg-prijmeni" placeholder="Příjmení">
-      <input type="email" id="reg-email" placeholder="E-mail">
+      <h3>Registrace</h3>
+      <input type="text" id="regJmeno" placeholder="Jméno" required>
+      <input type="text" id="regPrijmeni" placeholder="Příjmení" required>
+      <input type="email" id="regEmail" placeholder="E-mail" required>
       <button onclick="registrovat()">Vytvořit účet</button>
       <button onclick="zavritModal()">Zavřít</button>
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
   <script src="skript.js"></script>
 </body>
 </html>
