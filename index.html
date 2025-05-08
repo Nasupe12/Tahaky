@@ -5,7 +5,7 @@
   <title>Taháky</title>
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       background: #f5f5f5;
@@ -38,6 +38,32 @@
 
     button {
       margin-top: 10px;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 300px;
+    }
+
+    .modal input[type="text"],
+    .modal input[type="email"] {
+      width: 100%;
+      padding: 5px;
+      margin: 5px 0;
     }
   </style>
 </head>
@@ -79,10 +105,8 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode"></script> <!-- QR kód knihovna -->
-
 <script>
-  const formspreeUrl = 'https://formspree.io/f/movdwekl'; // ZDE vlož své Formspree URL
+  const formspreeUrl = 'https://formspree.io/f/TVŮJ-KÓD'; // ZDE vlož své Formspree URL
 
   let prihlasenyUzivatel = JSON.parse(localStorage.getItem("uzivatelPrihlasen")) || null;
 
@@ -163,33 +187,17 @@
       email: email
     };
 
-    // Generování QR kódu s unikátním ID pro žadatele a odeslání e-mailu Tobě
-    const qrCodeData = `mailto:${email}?subject=Potvrzení%20o%20vytisknutí%20taháku&body=Váš%20tahák%20${nazevTahaku}%20byl%20úspěšně%20vytisknut.`;
-    const qrCodeUrl = new URL(qrCodeData);
-    QRCode.toDataURL(qrCodeUrl.toString(), function (err, url) {
-      if (err) console.error(err);
-
-      // Odeslání e-mailu na Tvou adresu
-      const emailData = {
-        tahak: nazevTahaku,
-        jmeno: jmeno,
-        prijmeni: prijmeni,
-        email: email,
-        qrCode: url // Přidání obrázku QR kódu
-      };
-
-      fetch(formspreeUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(emailData)
-      })
-      .then(res => {
-        if (res.ok) {
-          alert("Žádost byla odeslána.");
-        } else {
-          alert("Nepodařilo se odeslat žádost.");
-        }
-      });
+    fetch(formspreeUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(res => {
+      if (res.ok) {
+        alert("Žádost byla odeslána.");
+      } else {
+        alert("Nepodařilo se odeslat žádost.");
+      }
     });
   }
 
