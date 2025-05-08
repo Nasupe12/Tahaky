@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Taháky</title>
+  <link rel="stylesheet" href="styl.css">
+</head>
+<body>
+  <header>
+    <h1>Taháky</h1>
+    <div id="auth-buttons">
+      <span id="user-info"></span>
+      <button onclick="zobrazPrihlaseni()">Přihlásit se</button>
+      <button onclick="zobrazRegistraci()">Vytvořit účet</button>
+      <button onclick="odhlasit()" id="btn-odhlasit" style="display:none">Odhlásit se</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="seznam-tahaku"></div>
+  </main>
+
+  <!-- Modály -->
+  <div class="modal" id="modal-prihlaseni">
+    <div class="modal-content">
+      <h2>Přihlášení</h2>
+      <input type="email" id="login-email" placeholder="E-mail">
+      <label><input type="checkbox" id="zustat-prihlasen"> Zůstat přihlášen</label><br>
+      <button onclick="prihlasit()">Přihlásit</button>
+      <button onclick="zavritModal()">Zavřít</button>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-registrace">
+    <div class="modal-content">
+      <h2>Registrace</h2>
+      <input type="text" id="reg-jmeno" placeholder="Jméno">
+      <input type="text" id="reg-prijmeni" placeholder="Příjmení">
+      <input type="email" id="reg-email" placeholder="E-mail">
+      <button onclick="registrovat()">Vytvořit účet</button>
+      <button onclick="zavritModal()">Zavřít</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <script src="skript.js"></script>
+</body>
+</html>
