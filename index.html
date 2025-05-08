@@ -106,7 +106,7 @@
 </div>
 
 <script>
-  const formspreeUrl = 'https://formspree.io/f/movdwekl'; // ZDE VLOŽ SVÉ FORMSPREE URL
+  const formspreeUrl = 'https://formspree.io/f/movdwekl'; // ZDE vlož své Formspree URL
 
   let prihlasenyUzivatel = JSON.parse(localStorage.getItem("uzivatelPrihlasen")) || null;
 
@@ -170,16 +170,14 @@
   }
 
   function odesliZadost(nazevTahaku) {
-    let jmeno, prijmeni, email;
+    let jmeno, prijmeni = "", email;
 
     if (prihlasenyUzivatel) {
       ({ jmeno, prijmeni, email } = prihlasenyUzivatel);
     } else {
       jmeno = prompt("Zadej své jméno:");
       if (!jmeno) return;
-      prijmeni = "";
-      email = prompt("Zadej svůj e-mail:");
-      if (!email) return;
+      email = "neuvedeno";
     }
 
     const data = {
@@ -221,5 +219,6 @@
       });
     });
 </script>
+
 </body>
 </html>
